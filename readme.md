@@ -1,4 +1,5 @@
 1 - Crie o banco playlist
+
 2 - As tabelas da aplicação se encontra no arquivo, apenas importar para o mysql: playlist.sql
 
 IMPORTANTE: 
@@ -13,6 +14,7 @@ senha: 123
 Caso não queira importar as tabelas do arquivo playlist.sql, você pode gerar elas pelo migrate:
 
 1 - Acesse pelo terminal o diretório do projeto.
+
 2 - execute o seguinte comando: php artisan migrate
 
 IMPORTANTE: 
@@ -25,7 +27,9 @@ Os demais usuarios cadastrados serão usuários sem privilégios, automaticament
 Para rodar a aplicação, faça o seguinte:
 
 1 - Acesse pelo terminal o diretório do projeto.
+
 2 - execute php artisan serve
+
 3 - acesse a url: http://localhost:8000/
 
 Depois só utilizar a aplicação =)
