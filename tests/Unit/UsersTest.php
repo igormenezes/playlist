@@ -11,9 +11,12 @@ use App\Model\Users;
 
 class UsersTest extends TestCase
 {
+	private $users;
+
 	public function setUp()
 	{
 		parent::setUp();
+		$this->users = new Users;
 		DB::beginTransaction();
 	}
 
@@ -44,12 +47,12 @@ class UsersTest extends TestCase
 
 	public function testAddRepeatUser()
 	{
-		$users = new Users;
-		$users->name = 'Teste';
-		$users->password = encrypt('123');
-		$users->email = 'teste@yahoo.com.br';
-		$users->age = 23;
-		$users->save();
+		
+		$this->users->name = 'Teste';
+		$this->users->password = encrypt('123');
+		$this->users->email = 'teste@yahoo.com.br';
+		$this->users->age = 23;
+		$this->users->save();
 
 		$response = $this->json('POST', '/create', array(
 			'name' => 'Teste',
@@ -63,13 +66,12 @@ class UsersTest extends TestCase
 
 	public function testLoginAdminUser()
 	{
-		$users = new Users;
-		$users->name = 'Teste';
-		$users->password = encrypt('123');
-		$users->email = 'testeadmin@yahoo.com.br';
-		$users->age = 23;
-		$users->administrator = 1;
-		$users->save();
+		$this->users->name = 'Teste';
+		$this->users->password = encrypt('123');
+		$this->users->email = 'testeadmin@yahoo.com.br';
+		$this->users->age = 23;
+		$this->users->administrator = 1;
+		$this->users->save();
 
 		$response = $this->json('POST', '/login', array(
 			'email' => 'testeadmin@yahoo.com.br',
@@ -81,12 +83,12 @@ class UsersTest extends TestCase
 
 	public function testLoginComumUser()
 	{
-		$users = new Users;
-		$users->name = 'Teste';
-		$users->password = encrypt('123');
-		$users->email = 'teste@yahoo.com.br';
-		$users->age = 23;
-		$users->save();
+		$this->users = new Users;
+		$this->users->name = 'Teste';
+		$this->users->password = encrypt('123');
+		$this->users->email = 'teste@yahoo.com.br';
+		$this->users->age = 23;
+		$this->users->save();
 
 		$response = $this->json('POST', '/login', array(
 			'email' => 'teste@yahoo.com.br',
