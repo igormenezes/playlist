@@ -43,13 +43,12 @@ class MusicsController extends Controller
     }
 
     public function rank(Request $request){
-        if(!$request->session()->get('login') && $request->session()->get('administrator') === 1){
-            return view('/');
+        if($request->session()->get('login') && $request->session()->get('administrator') === 1){
+            $datas = DB::table('favorites')->select('name', 'style', 'artist')->get();
+            return view('rank', ['favorites' => $datas]);
         }
 
-        $datas = DB::table('favorites')->select('name', 'style', 'artist')->get();
-
-        return view('rank', ['favorites' => $datas]);
+        return redirect('/');
     }
 
     public function search(Request $request){
@@ -88,16 +87,3 @@ class MusicsController extends Controller
         return redirect('/');
     }
 }
-
-
-    /*
-
-    SELECT COUNT(style) AS total, style
-FROM favorites
-GROUP BY style   
-ORDER BY COUNT(style) DESC
-}
-
-
-
-
