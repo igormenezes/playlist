@@ -26,6 +26,10 @@ Route::group(['middleware' => 'web'], function(){
 	Route::get('/list', 'FavoritesController@index');
 	Route::get('/add/{id}', 'FavoritesController@add');
 
+	Route::get('/add', function () {
+    	return redirect('/');
+	});
+
 	Route::get('/favorites', 'FavoritesController@favorites');
 	Route::get('/remove/{id}', 'FavoritesController@remove');
 
