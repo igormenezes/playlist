@@ -67,7 +67,7 @@ class MusicsController extends Controller
                 break;
             default:
                 $datas = DB::table('favorites')->select('name', 'style', 'artist')->get();
-                exit(json_encode($datas)); 
+                return(json_encode($datas)); 
         }
 
         $datas = DB::table('favorites')
@@ -77,7 +77,7 @@ class MusicsController extends Controller
             ->get();
 
 
-        exit(json_encode($datas));
+        return(json_encode($datas));
 
     }
 
