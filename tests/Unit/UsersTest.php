@@ -16,6 +16,10 @@ class UsersTest extends TestCase
 	public function setUp()
 	{
 		parent::setUp();
+
+
+		//$this->artisan('migrate:refresh');
+		
 		$this->users = new Users;
 		DB::beginTransaction();
 	}
@@ -31,27 +35,22 @@ class UsersTest extends TestCase
 			));
 
 		$response->assertStatus(302);
-	}
 
-	public function testAddComumUser()
-	{
-		$response = $this->json('POST', '/create', array(
-			'name' => 'Teste',
-			'password' => '123',
-			'email' => 'teste@yahoo.com.br',
-			'age' => 25
-			));
+		$this->assertDatabaseHas('users', [
+			'name' => 'Teste Admin',
+			'email' => 'testeadmin@yahoo.com.br',
+			'age' => 25,
+			'administrator' => 1
+			]);
 
-		$response->assertStatus(302);
 	}
 
 	public function testAddRepeatUser()
 	{
-		
 		$this->users->name = 'Teste';
 		$this->users->password = encrypt('123');
 		$this->users->email = 'teste@yahoo.com.br';
-		$this->users->age = 23;
+		$this->users->age = 25;
 		$this->users->save();
 
 		$response = $this->json('POST', '/create', array(
@@ -61,7 +60,8 @@ class UsersTest extends TestCase
 			'age' => 25
 			));
 
-		$response->assertViewHas('message');
+		$response->assertViewHas('message', 'E-mail já está sendo utilizado!');
+
 	}
 
 	public function testLoginAdminUser()
@@ -106,7 +106,7 @@ class UsersTest extends TestCase
 			'password' => '123'
 			));
 
-		$response->assertViewHas('message');
+		$response->assertViewHas('message', 'E-mail e password inválidos!');
 	}
 
 	public function tearDown(){
