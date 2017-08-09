@@ -61,7 +61,7 @@ class UsersTest extends TestCase
 			'age' => 25
 			));
 
-		$response->assertViewIs('register');
+		$response->assertViewHas('message');
 	}
 
 	public function testLoginAdminUser()
@@ -96,6 +96,17 @@ class UsersTest extends TestCase
 			));
 
 		$response->assertRedirect('/list');
+	}
+
+	public function testLoginNotExistUser()
+	{
+
+		$response = $this->json('POST', '/login', array(
+			'email' => 'teste@yahoo.com.br',
+			'password' => '123'
+			));
+
+		$response->assertViewHas('message');
 	}
 
 	public function tearDown(){
