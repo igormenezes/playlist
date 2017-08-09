@@ -24,7 +24,7 @@ class FavoritesController extends Controller
     }
 
     public function add(Request $request, Favorites $favorites, $id){
-    	if(!is_numeric($id) && empty($request->session()->get('login'))){
+    	if(!is_numeric($id) || !$request->session()->get('login')){
     		return redirect('/');
     	}
 
@@ -51,7 +51,7 @@ class FavoritesController extends Controller
     }
 
     public function remove(Request $request, Favorites $favorites, $id){
-    	if(!is_numeric($id) && empty($request->session()->get('login'))){
+    	if(!is_numeric($id) || !$request->session()->get('login')){
     		return redirect('/');
     	}
 
